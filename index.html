@@ -347,36 +347,30 @@
            FINAL DEL VIDEO
            ===================================================== */
 
-        video.addEventListener(
-            "ended",
-            function() {
+      video.addEventListener(
+    "ended",
+    function() {
 
-                /*
-                   Las palabras aparecen una después de otra.
-                   Cada palabra baja desde arriba y se vuelve
-                   progresivamente nítida.
-                */
+        palabras.forEach(
+            (palabra, indice) => {
 
-                palabras.forEach(
-                    (palabra, indice) => {
+                setTimeout(
+                    () => {
 
-                        setTimeout(
-                            () => {
-
-                                palabra.classList.add(
-                                    "visible"
-                                );
-
-                            },
-
-                            indice * 420
+                        palabra.classList.add(
+                            "visible"
                         );
 
-                    }
+                    },
+
+                    indice * 420
                 );
 
             }
         );
+
+    }
+);
 
     </script>
 
