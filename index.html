@@ -1,4 +1,4 @@
-```html id="q8m4vj"
+```html id="c7n2pf"
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -41,7 +41,7 @@
             letter-spacing: 3px;
             text-align: center;
             cursor: pointer;
-            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
             z-index: 10;
             transition: opacity 0.5s ease;
         }
@@ -55,7 +55,7 @@
 
 <body>
 
-    <video id="video" autoplay playsinline>
+    <video id="video" autoplay muted playsinline>
         <source src="VIDEO.mp4" type="video/mp4">
     </video>
 
@@ -65,20 +65,19 @@
         const video = document.getElementById("video");
         const mensaje = document.getElementById("mensaje");
 
-        mensaje.addEventListener("click", function() {
+        function despertar() {
             video.muted = false;
             video.play();
             mensaje.classList.add("oculto");
-        });
+        }
 
-        video.addEventListener("click", function() {
-            video.muted = false;
-            video.play();
-            mensaje.classList.add("oculto");
-        });
+        mensaje.addEventListener("click", despertar);
+        video.addEventListener("click", despertar);
     </script>
 
 </body>
 </html>
 ```
+
+
 
