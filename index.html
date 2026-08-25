@@ -169,7 +169,7 @@
        Da una sensación más abierta y natural,
        evitando que la frase quede amontonada.
     */
-    margin: 0 0.35em;
+    margin: 0 0.45em;
 }
 
 
@@ -347,9 +347,16 @@
            FINAL DEL VIDEO
            ===================================================== */
 
-      video.addEventListener(
-    "ended",
-    function() {
+     let mensajeIniciado = false;
+
+video.addEventListener("timeupdate", function() {
+
+    if (
+        !mensajeIniciado &&
+        video.duration - video.currentTime <= 1
+    ) {
+
+        mensajeIniciado = true;
 
         palabras.forEach(
             (palabra, indice) => {
@@ -357,9 +364,7 @@
                 setTimeout(
                     () => {
 
-                        palabra.classList.add(
-                            "visible"
-                        );
+                        palabra.classList.add("visible");
 
                     },
 
@@ -368,9 +373,9 @@
 
             }
         );
-
     }
-);
+
+});
 
     </script>
 
