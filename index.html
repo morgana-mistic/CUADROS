@@ -142,52 +142,52 @@
         /* =====================================================
            CADA PALABRA
            ===================================================== */
+#mensajeFinal .palabra {
 
-        #mensajeFinal .palabra {
+    display: inline-block;
 
-            display: inline-block;
+    opacity: 0;
 
-            opacity: 0;
+    /*
+       Comienza ligeramente desplazada hacia arriba
+       y aumenta un poco de tamaño.
+    */
+    transform:
+        translateY(-35px)
+        scale(0.92)
+        rotate(-2deg);
 
-            /*
-               Comienza ligeramente desplazada hacia arriba
-               y aumenta un poco de tamaño.
-            */
-            transform:
-                translateY(-35px)
-                scale(0.92)
-                rotate(-2deg);
+    filter: blur(3px);
 
-            filter: blur(3px);
+    transition:
+        opacity 0.45s ease-out,
+        transform 0.55s cubic-bezier(.2,.8,.2,1),
+        filter 0.55s ease-out;
 
-            transition:
-                opacity 0.45s ease-out,
-                transform 0.55s cubic-bezier(.2,.8,.2,1),
-                filter 0.55s ease-out;
-
-            /*
-               Pequeña separación para que cada palabra
-               tenga presencia propia.
-            */
-            margin: 0 0.10em;
-        }
+    /*
+       Mayor separación horizontal entre palabras.
+       Da una sensación más abierta y natural,
+       evitando que la frase quede amontonada.
+    */
+    margin: 0 0.24em;
+}
 
 
-        /*
-           Estado visible de cada palabra.
-        */
+/*
+   Estado visible de cada palabra.
+*/
 
-        #mensajeFinal .palabra.visible {
+#mensajeFinal .palabra.visible {
 
-            opacity: 0.94;
+    opacity: 0.94;
 
-            transform:
-                translateY(0)
-                scale(1)
-                rotate(0deg);
+    transform:
+        translateY(0)
+        scale(1)
+        rotate(0deg);
 
-            filter: blur(0);
-        }
+    filter: blur(0);
+}
 
 
         /* =====================================================
