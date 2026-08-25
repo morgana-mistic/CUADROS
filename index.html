@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -6,7 +7,7 @@
     <title>Cuadro interactivo</title>
 
     <!-- Fuente manuscrita -->
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
 
     <style>
         html, body {
@@ -25,6 +26,10 @@
             position: relative;
         }
 
+        /*
+           El video conserva siempre sus proporciones
+           y entra completo en la pantalla.
+        */
         video {
             width: 100%;
             height: 100%;
@@ -58,7 +63,7 @@
             pointer-events: none;
         }
 
-        /* Zona del mensaje final */
+        /* Mensaje final */
         #mensajeFinal {
             position: absolute;
 
@@ -67,35 +72,53 @@
 
             transform: translate(-50%, -50%);
 
-            width: 76%;
+            /*
+               Más ancho para que el texto pueda crecer
+               sin quedar demasiado comprimido.
+            */
+            width: 82%;
+            max-width: 1100px;
 
-            color: #17130f;
+            color: #100c08;
 
-            font-family: "Permanent Marker", cursive;
-            font-size: clamp(24px, 5vw, 48px);
-            line-height: 1.18;
+            /*
+               Manuscrita más elegante y orgánica.
+            */
+            font-family: "Caveat", cursive;
+            font-weight: 600;
+
+            /*
+               Más grande que antes, pero adaptable
+               a celular y PC.
+            */
+            font-size: clamp(30px, 5.8vw, 66px);
+
+            line-height: 1.08;
 
             text-align: center;
 
             /*
-               La pintura negra se integra con la textura
-               de la pared en lugar de parecer texto digital.
+               Hace que la tinta se mezcle visualmente
+               con la superficie de la pared.
             */
             mix-blend-mode: multiply;
+
             opacity: 0;
 
+            /*
+               Ligera irregularidad visual para evitar
+               el aspecto de texto digital perfectamente limpio.
+            */
             text-shadow:
-                0.5px 0.5px 0 rgba(0,0,0,0.35),
-                -0.4px 0 rgba(0,0,0,0.15);
+                0.7px 0.7px 0 rgba(0,0,0,0.25),
+                -0.4px 0 rgba(0,0,0,0.12);
 
             z-index: 8;
-
             pointer-events: none;
         }
 
         /*
-           Al terminar el video, la escritura comienza
-           exactamente en ese momento.
+           Aparece exactamente cuando termina el video.
         */
         #mensajeFinal.revelado {
             animation: escritura 1.6s ease-out forwards;
@@ -109,8 +132,38 @@
             }
 
             100% {
-                opacity: 0.90;
+                opacity: 0.92;
                 clip-path: inset(0 0 0 0);
+            }
+        }
+
+        /*
+           Ajustes específicos para pantallas pequeñas.
+        */
+        @media (max-width: 600px) {
+
+            #mensajeFinal {
+                width: 88%;
+                top: 58%;
+                font-size: clamp(30px, 9vw, 48px);
+                line-height: 1.05;
+            }
+
+            #mensajeInicial {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+        }
+
+        /*
+           En pantallas grandes evitamos que el texto
+           se vuelva excesivamente grande.
+        */
+        @media (min-width: 1200px) {
+
+            #mensajeFinal {
+                width: 78%;
+                font-size: clamp(48px, 4.5vw, 66px);
             }
         }
     </style>
@@ -156,8 +209,8 @@
         video.addEventListener("click", despertar);
 
         /*
-           Cuando llega exactamente al último fotograma,
-           comienza inmediatamente la escritura.
+           Al terminar el video, el mensaje aparece
+           inmediatamente sobre el último fotograma.
         */
         video.addEventListener("ended", function() {
 
@@ -169,4 +222,4 @@
 
 </body>
 </html>
-          
+```
