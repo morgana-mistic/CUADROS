@@ -92,39 +92,55 @@
    PALABRAS DEL MENSAJE FINAL
    ===================================================== */
 
+/* =====================================================
+   MENSAJE FINAL — APARICIÓN SUTIL DEL BLOQUE COMPLETO
+   ===================================================== */
+
 #mensajeFinal {
+
     position: absolute;
 
     left: 50%;
     top: 45%;
 
-    transform: translateX(-50%) rotate(-1deg);
+    transform:
+        translate(-50%, -50%)
+        rotate(-1deg);
 
-    /*
-       El texto tiene espacio suficiente para distribuirse
-       horizontalmente y puede crecer libremente hacia abajo.
-    */
     width: 88%;
     max-width: 1200px;
 
     text-align: center;
 
-    /*
-       Importante:
-       el bloque NO tiene una altura fija.
-       Puede crecer hacia abajo según la cantidad de líneas.
-    */
-    height: auto;
-
     font-family: "Rock Salt", cursive;
     font-size: clamp(42px, 7vw, 105px);
-    line-height: 1.25;
+
+    /*
+       Más espacio vertical entre líneas.
+    */
+    line-height: 1.35;
 
     color: #090705;
 
+    /*
+       Integración con la pared.
+    */
     mix-blend-mode: multiply;
 
-    opacity: 1;
+    /*
+       Estado inicial:
+       casi invisible y ligeramente difuminado.
+    */
+    opacity: 0;
+
+    filter: blur(4px);
+
+    /*
+       Comienza apenas desplazado hacia arriba.
+    */
+    transform:
+        translate(-50%, calc(-50% - 12px))
+        rotate(-1deg);
 
     z-index: 8;
 
@@ -132,35 +148,102 @@
 }
 
 
-/* Cada palabra */
+/* =====================================================
+   MENSAJE REVELADO
+   ===================================================== */
 
-#mensajeFinal .palabra {
+#mensajeFinal.revelado {
 
-    display: inline-block;
+    animation:
+        aparecerPared 2.8s ease-out forwards;
+}
 
-    opacity: 0;
 
-    /*
-       Cada palabra entra desde arriba.
-    */
-    transform:
-        translateY(-45px)
-        scale(0.90)
-        rotate(-2deg);
+/* =====================================================
+   APARICIÓN
+   ===================================================== */
 
-    filter: blur(3px);
+@keyframes aparecerPared {
 
-    /*
-       Separación REAL entre palabras.
-       Ya no necesitamos exagerar el margin.
-    */
-    margin-left: 0.18em;
-    margin-right: 0.18em;
+    0% {
 
-    transition:
-        opacity 0.45s ease-out,
-        transform 0.55s cubic-bezier(.2,.8,.2,1),
-        filter 0.55s ease-out;
+        opacity: 0;
+
+        filter: blur(4px);
+
+        transform:
+            translate(-50%, calc(-50% - 12px))
+            rotate(-1deg);
+    }
+
+    35% {
+
+        opacity: 0.25;
+
+        filter: blur(2.5px);
+
+        transform:
+            translate(-50%, calc(-50% - 5px))
+            rotate(-1deg);
+    }
+
+    70% {
+
+        opacity: 0.65;
+
+        filter: blur(0.8px);
+
+        transform:
+            translate(-50%, -50%)
+            rotate(-1deg);
+    }
+
+    100% {
+
+        opacity: 0.92;
+
+        filter: blur(0);
+
+        transform:
+            translate(-50%, -50%)
+            rotate(-1deg);
+    }
+}
+
+
+/* =====================================================
+   CELULAR
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    #mensajeFinal {
+
+        width: 90%;
+
+        top: 43%;
+
+        font-size: clamp(36px, 10vw, 60px);
+
+        line-height: 1.35;
+    }
+}
+
+
+/* =====================================================
+   PANTALLAS GRANDES
+   ===================================================== */
+
+@media (min-width: 1200px) {
+
+    #mensajeFinal {
+
+        width: 84%;
+
+        top: 44%;
+
+        font-size: clamp(55px, 5.8vw, 105px);
+    }
 }
 
 
@@ -271,16 +354,8 @@
          ===================================================== -->
 
     <div id="mensajeFinal">
-
-        <span class="palabra">ESTO</span>
-        <span class="palabra">ME</span>
-        <span class="palabra">ESTÁ</span>
-        <span class="palabra">SACBABDI</span>
-        <span class="palabra">CABAS</span>
-        <span class="palabra">VERDES</span>
-        <span class="palabra">LOCA.</span>
-
-    </div>
+    NO FUE CASUALIDAD QUE LLEGARAS HASTA AQUÍ.
+</div>
 
 
     <script>
@@ -338,30 +413,23 @@
 
      let mensajeIniciado = false;
 
+/* =====================================================
+   COMENZAR EL MENSAJE
+   1 SEGUNDO ANTES DEL FINAL
+   ===================================================== */
+
 video.addEventListener("timeupdate", function() {
 
+    if (mensajeIniciado) return;
+
     if (
-        !mensajeIniciado &&
+        video.duration &&
         video.duration - video.currentTime <= 2
     ) {
 
         mensajeIniciado = true;
 
-        palabras.forEach(
-            (palabra, indice) => {
-
-                setTimeout(
-                    () => {
-
-                        palabra.classList.add("visible");
-
-                    },
-
-                    indice * 420
-                );
-
-            }
-        );
+        mensajeFinal.classList.add("revelado");
     }
 
 });
