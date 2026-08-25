@@ -88,60 +88,52 @@
            MENSAJE FINAL
            ===================================================== */
 
-        #mensajeFinal {
+       /* =====================================================
+   PALABRAS DEL MENSAJE FINAL
+   ===================================================== */
 
-            position: absolute;
+#mensajeFinal {
+    position: absolute;
 
-            left: 50%;
-            top: 50%;
+    left: 50%;
+    top: 45%;
 
-            transform: translate(-50%, -50%);
+    transform: translateX(-50%) rotate(-1deg);
 
-            width: 90%;
+    /*
+       El texto tiene espacio suficiente para distribuirse
+       horizontalmente y puede crecer libremente hacia abajo.
+    */
+    width: 88%;
+    max-width: 1200px;
 
-            max-width: 1000px;
+    text-align: center;
 
-            /*
-               Mucho más grande.
-               La idea es que domine la pared.
-            */
-            font-size: clamp(42px, 7vw, 105px);
+    /*
+       Importante:
+       el bloque NO tiene una altura fija.
+       Puede crecer hacia abajo según la cantidad de líneas.
+    */
+    height: auto;
 
-            line-height: 1.05;
+    font-family: "Rock Salt", cursive;
+    font-size: clamp(42px, 7vw, 105px);
+    line-height: 1.25;
 
-            text-align: center;
+    color: #090705;
 
-            font-family: "Rock Salt", cursive;
+    mix-blend-mode: multiply;
 
-            font-weight: normal;
+    opacity: 1;
 
-            color: #090705;
+    z-index: 8;
 
-            /*
-               Integración con la pared.
-            */
-            mix-blend-mode: multiply;
-
-            opacity: 1;
-
-            z-index: 8;
-
-            pointer-events: none;
-
-            /*
-               Un pequeño desplazamiento y rotación
-               hacen que no parezca texto perfectamente
-               colocado por computadora.
-            */
-            transform:
-                translate(-50%, -50%)
-                rotate(-1deg);
-        }
+    pointer-events: none;
+}
 
 
-        /* =====================================================
-           CADA PALABRA
-           ===================================================== */
+/* Cada palabra */
+
 #mensajeFinal .palabra {
 
     display: inline-block;
@@ -149,33 +141,30 @@
     opacity: 0;
 
     /*
-       Comienza ligeramente desplazada hacia arriba
-       y aumenta un poco de tamaño.
+       Cada palabra entra desde arriba.
     */
     transform:
-        translateY(-35px)
-        scale(0.92)
+        translateY(-45px)
+        scale(0.90)
         rotate(-2deg);
 
     filter: blur(3px);
+
+    /*
+       Separación REAL entre palabras.
+       Ya no necesitamos exagerar el margin.
+    */
+    margin-left: 0.18em;
+    margin-right: 0.18em;
 
     transition:
         opacity 0.45s ease-out,
         transform 0.55s cubic-bezier(.2,.8,.2,1),
         filter 0.55s ease-out;
-
-    /*
-       Mayor separación horizontal entre palabras.
-       Da una sensación más abierta y natural,
-       evitando que la frase quede amontonada.
-    */
-    margin: 0 0.60em;
 }
 
 
-/*
-   Estado visible de cada palabra.
-*/
+/* Palabra visible */
 
 #mensajeFinal .palabra.visible {
 
@@ -190,66 +179,66 @@
 }
 
 
-        /* =====================================================
-           VARIACIONES SUTILES
-           ===================================================== */
+/* =====================================================
+   VARIACIONES MANUALES SUTILES
+   ===================================================== */
 
-        /*
-           Las palabras no quedan todas matemáticamente
-           alineadas como una tipografía digital.
-        */
+#mensajeFinal .palabra:nth-child(2) {
+    transform:
+        translateY(-38px)
+        rotate(1.5deg)
+        scale(0.94);
+}
 
-        #mensajeFinal .palabra:nth-child(2) {
-            transform: translateY(-28px) rotate(1.5deg) scale(0.94);
-        }
+#mensajeFinal .palabra:nth-child(4) {
+    transform:
+        translateY(-42px)
+        rotate(-1deg)
+        scale(0.96);
+}
 
-        #mensajeFinal .palabra:nth-child(4) {
-            transform: translateY(-32px) rotate(-1deg) scale(0.96);
-        }
-
-        #mensajeFinal .palabra:nth-child(6) {
-            transform: translateY(-25px) rotate(1deg) scale(0.93);
-        }
-
-
-        /* =====================================================
-           PANTALLAS PEQUEÑAS
-           ===================================================== */
-
-        @media (max-width: 600px) {
-
-            #mensajeFinal {
-
-                width: 92%;
-
-                top: 58%;
-
-                font-size: clamp(36px, 10vw, 60px);
-
-                line-height: 1.02;
-            }
-
-            #mensajeInicial {
-                font-size: 18px;
-                letter-spacing: 2px;
-            }
-        }
+#mensajeFinal .palabra:nth-child(6) {
+    transform:
+        translateY(-35px)
+        rotate(1deg)
+        scale(0.93);
+}
 
 
-        /* =====================================================
-           PANTALLAS GRANDES
-           ===================================================== */
+/* =====================================================
+   CELULAR
+   ===================================================== */
 
-        @media (min-width: 1200px) {
+@media (max-width: 600px) {
 
-            #mensajeFinal {
+    #mensajeFinal {
 
-                width: 82%;
+        width: 90%;
 
-                font-size: clamp(55px, 5.8vw, 105px);
-            }
-        }
+        top: 43%;
 
+        font-size: clamp(36px, 10vw, 60px);
+
+        line-height: 1.25;
+    }
+}
+
+
+/* =====================================================
+   PANTALLAS GRANDES
+   ===================================================== */
+
+@media (min-width: 1200px) {
+
+    #mensajeFinal {
+
+        width: 84%;
+
+        top: 44%;
+
+        font-size: clamp(55px, 5.8vw, 105px);
+    }
+}
     </style>
 </head>
 
