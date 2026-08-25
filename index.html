@@ -1,4 +1,4 @@
-```html
+```html id="q8m4vj"
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,6 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         video {
@@ -28,15 +29,56 @@
             object-fit: contain;
             display: block;
         }
+
+        #mensaje {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 22px;
+            letter-spacing: 3px;
+            text-align: center;
+            cursor: pointer;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+            z-index: 10;
+            transition: opacity 0.5s ease;
+        }
+
+        #mensaje.oculto {
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 
 <body>
 
-    <video autoplay playsinline>
+    <video id="video" autoplay playsinline>
         <source src="VIDEO.mp4" type="video/mp4">
     </video>
+
+    <div id="mensaje">TOCA PARA DESPERTARLA</div>
+
+    <script>
+        const video = document.getElementById("video");
+        const mensaje = document.getElementById("mensaje");
+
+        mensaje.addEventListener("click", function() {
+            video.muted = false;
+            video.play();
+            mensaje.classList.add("oculto");
+        });
+
+        video.addEventListener("click", function() {
+            video.muted = false;
+            video.play();
+            mensaje.classList.add("oculto");
+        });
+    </script>
 
 </body>
 </html>
 ```
+
