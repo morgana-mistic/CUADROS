@@ -1,4 +1,4 @@
-```html id="c7n2pf"
+```html id="m8r1xq"
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -30,25 +30,116 @@
             display: block;
         }
 
-        #mensaje {
+        /* Zona final del mensaje */
+        #final {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-family: Georgia, serif;
-            font-size: 22px;
-            letter-spacing: 3px;
-            text-align: center;
-            cursor: pointer;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
-            z-index: 10;
-            transition: opacity 0.5s ease;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+            opacity: 0;
         }
 
-        #mensaje.oculto {
+        #mensaje {
+            position: relative;
+            z-index: 3;
+            max-width: 75%;
+            text-align: center;
+            color: #f5f1e8;
+            font-family: Georgia, serif;
+            font-size: clamp(22px, 4vw, 42px);
+            line-height: 1.3;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.9);
+        }
+
+        /*
+           Mancha de pintura.
+           Se coloca delante del mensaje y luego
+           se desplaza hacia abajo.
+        */
+        #pintura {
+            position: absolute;
+            z-index: 4;
+            top: 38%;
+            left: 50%;
+            width: 58%;
+            height: 30%;
+            transform: translate(-50%, -50%) scaleY(0);
+            transform-origin: top center;
+            background: #050505;
+            border-radius: 48% 52% 38% 62%;
             opacity: 0;
-            pointer-events: none;
+        }
+
+        #pintura::before,
+        #pintura::after {
+            content: "";
+            position: absolute;
+            background: #050505;
+            border-radius: 50%;
+        }
+
+        #pintura::before {
+            width: 25%;
+            height: 70%;
+            left: -8%;
+            top: 35%;
+        }
+
+        #pintura::after {
+            width: 18%;
+            height: 110%;
+            right: -6%;
+            top: 20%;
+        }
+
+        /* Cuando comienza el efecto */
+        #final.activo {
+            opacity: 1;
+        }
+
+        #final.activo #pintura {
+            animation:
+                aparecer 0.7s ease-out forwards,
+                escurrir 2.8s ease-in 0.7s forwards;
+        }
+
+        #final.activo #mensaje {
+            animation: revelar 2.8s ease-in 1s forwards;
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scaleY(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scaleY(1);
+            }
+        }
+
+        @keyframes escurrir {
+            from {
+                transform: translate(-50%, -50%) scaleY(1);
+            }
+
+            to {
+                transform: translate(-50%, 80%) scaleY(2.5);
+            }
+        }
+
+        @keyframes revelar {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
@@ -59,25 +150,41 @@
         <source src="VIDEO.mp4" type="video/mp4">
     </video>
 
-    <div id="mensaje">TOCA PARA DESPERTARLA</div>
+    <div id="mensajeInicial">TOCA PARA DESPERTARLA</div>
+
+    <div id="final">
+        <div id="pintura"></div>
+
+        <div id="mensaje">
+            NO FUE CASUALIDAD QUE LLEGARAS HASTA AQUÍ.
+        </div>
+    </div>
 
     <script>
         const video = document.getElementById("video");
-        const mensaje = document.getElementById("mensaje");
+        const mensajeInicial = document.getElementById("mensajeInicial");
+        const final = document.getElementById("final");
 
         function despertar() {
             video.muted = false;
             video.play();
-            mensaje.classList.add("oculto");
+            mensajeInicial.classList.add("oculto");
         }
 
-        mensaje.addEventListener("click", despertar);
+        mensajeInicial.addEventListener("click", despertar);
         video.addEventListener("click", despertar);
+
+        video.addEventListener("ended", function() {
+            setTimeout(function() {
+                final.classList.add("activo");
+            }, 700);
+        });
     </script>
 
 </body>
 </html>
 ```
+
 
 
 
