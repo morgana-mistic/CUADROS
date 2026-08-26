@@ -353,9 +353,7 @@
          MENSAJE FINAL
          ===================================================== -->
 
-    <div id="mensajeFinal">
-    NO FUE CASUALIDAD QUE LLEGARAS HASTA AQUÍ.
-</div>
+  <div id="mensajeFinal"></div>
 
 
     <script>
@@ -366,8 +364,18 @@
         const mensajeInicial =
             document.getElementById("mensajeInicial");
 
-        const mensajeFinal =
-            document.getElementById("mensajeFinal");
+        const mensajes = [
+    "NO FUE CASUALIDAD QUE LLEGARAS HASTA AQUÍ.",
+    "EL UNIVERSO SABE POR QUÉ ESTÁS AQUÍ.",
+    "ALGUNAS PUERTAS SOLO SE ABREN UNA VEZ.",
+    "TAL VEZ ESTO ERA EXACTAMENTE LO QUE NECESITABAS VER.",
+    "LA MAGIA COMIENZA CUANDO PRESTAS ATENCIÓN."
+];
+
+const mensajeAleatorio =
+    mensajes[Math.floor(Math.random() * mensajes.length)];
+
+mensajeFinal.textContent = mensajeAleatorio;
 
         const palabras =
             document.querySelectorAll(
