@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -85,243 +84,221 @@
 
 
         /* =====================================================
-           MENSAJE FINAL
+           MENSAJE FINAL — APARICIÓN SUTIL DEL BLOQUE COMPLETO
            ===================================================== */
 
-       /* =====================================================
-   PALABRAS DEL MENSAJE FINAL
-   ===================================================== */
+        #mensajeFinal {
 
-/* =====================================================
-   MENSAJE FINAL — APARICIÓN SUTIL DEL BLOQUE COMPLETO
-   ===================================================== */
+            position: absolute;
 
-#mensajeFinal {
+            left: 50%;
+            top: 45%;
 
-    position: absolute;
+            transform:
+                translate(-50%, -50%)
+                rotate(-1deg);
 
-    left: 50%;
-    top: 45%;
+            width: 88%;
+            max-width: 1200px;
 
-    transform:
-        translate(-50%, -50%)
-        rotate(-1deg);
+            text-align: center;
 
-    width: 88%;
-    max-width: 1200px;
+            font-family: "Rock Salt", cursive;
+            font-size: clamp(42px, 7vw, 105px);
 
-    text-align: center;
+            line-height: 1.35;
 
-    font-family: "Rock Salt", cursive;
-    font-size: clamp(42px, 7vw, 105px);
+            color: #090705;
 
-    /*
-       Más espacio vertical entre líneas.
-    */
-    line-height: 1.35;
+            mix-blend-mode: multiply;
 
-    color: #090705;
+            opacity: 0;
 
-    /*
-       Integración con la pared.
-    */
-    mix-blend-mode: multiply;
+            filter: blur(4px);
 
-    /*
-       Estado inicial:
-       casi invisible y ligeramente difuminado.
-    */
-    opacity: 0;
+            transform:
+                translate(-50%, calc(-50% - 12px))
+                rotate(-1deg);
 
-    filter: blur(4px);
+            z-index: 8;
 
-    /*
-       Comienza apenas desplazado hacia arriba.
-    */
-    transform:
-        translate(-50%, calc(-50% - 12px))
-        rotate(-1deg);
+            pointer-events: none;
+        }
 
-    z-index: 8;
 
-    pointer-events: none;
-}
+        /* =====================================================
+           MENSAJE REVELADO
+           ===================================================== */
 
+        #mensajeFinal.revelado {
 
-/* =====================================================
-   MENSAJE REVELADO
-   ===================================================== */
+            animation:
+                aparecerPared 2.8s ease-out forwards;
+        }
 
-#mensajeFinal.revelado {
 
-    animation:
-        aparecerPared 2.8s ease-out forwards;
-}
+        /* =====================================================
+           APARICIÓN
+           ===================================================== */
 
+        @keyframes aparecerPared {
 
-/* =====================================================
-   APARICIÓN
-   ===================================================== */
+            0% {
 
-@keyframes aparecerPared {
+                opacity: 0;
 
-    0% {
+                filter: blur(4px);
 
-        opacity: 0;
+                transform:
+                    translate(-50%, calc(-50% - 12px))
+                    rotate(-1deg);
+            }
 
-        filter: blur(4px);
+            35% {
 
-        transform:
-            translate(-50%, calc(-50% - 12px))
-            rotate(-1deg);
-    }
+                opacity: 0.25;
 
-    35% {
+                filter: blur(2.5px);
 
-        opacity: 0.25;
+                transform:
+                    translate(-50%, calc(-50% - 5px))
+                    rotate(-1deg);
+            }
 
-        filter: blur(2.5px);
+            70% {
 
-        transform:
-            translate(-50%, calc(-50% - 5px))
-            rotate(-1deg);
-    }
+                opacity: 0.65;
 
-    70% {
+                filter: blur(0.8px);
 
-        opacity: 0.65;
+                transform:
+                    translate(-50%, -50%)
+                    rotate(-1deg);
+            }
 
-        filter: blur(0.8px);
+            100% {
 
-        transform:
-            translate(-50%, -50%)
-            rotate(-1deg);
-    }
+                opacity: 0.92;
 
-    100% {
+                filter: blur(0);
 
-        opacity: 0.92;
+                transform:
+                    translate(-50%, -50%)
+                    rotate(-1deg);
+            }
+        }
 
-        filter: blur(0);
 
-        transform:
-            translate(-50%, -50%)
-            rotate(-1deg);
-    }
-}
+        /* =====================================================
+           CELULAR
+           ===================================================== */
 
+        @media (max-width: 600px) {
 
-/* =====================================================
-   CELULAR
-   ===================================================== */
+            #mensajeFinal {
 
-@media (max-width: 600px) {
+                width: 90%;
 
-    #mensajeFinal {
+                top: 43%;
 
-        width: 90%;
+                font-size: clamp(36px, 10vw, 60px);
 
-        top: 43%;
+                line-height: 1.35;
+            }
+        }
 
-        font-size: clamp(36px, 10vw, 60px);
 
-        line-height: 1.35;
-    }
-}
+        /* =====================================================
+           PANTALLAS GRANDES
+           ===================================================== */
 
+        @media (min-width: 1200px) {
 
-/* =====================================================
-   PANTALLAS GRANDES
-   ===================================================== */
+            #mensajeFinal {
 
-@media (min-width: 1200px) {
+                width: 84%;
 
-    #mensajeFinal {
+                top: 44%;
 
-        width: 84%;
+                font-size: clamp(55px, 5.8vw, 105px);
+            }
+        }
 
-        top: 44%;
 
-        font-size: clamp(55px, 5.8vw, 105px);
-    }
-}
+        /* =====================================================
+           VARIACIONES MANUALES SUTILES
+           ===================================================== */
 
+        #mensajeFinal .palabra.visible {
 
-/* Palabra visible */
+            opacity: 0.94;
 
-#mensajeFinal .palabra.visible {
+            transform:
+                translateY(0)
+                scale(1)
+                rotate(0deg);
 
-    opacity: 0.94;
+            filter: blur(0);
+        }
 
-    transform:
-        translateY(0)
-        scale(1)
-        rotate(0deg);
 
-    filter: blur(0);
-}
+        #mensajeFinal .palabra:nth-child(2) {
+            transform:
+                translateY(-38px)
+                rotate(1.5deg)
+                scale(0.94);
+        }
 
+        #mensajeFinal .palabra:nth-child(4) {
+            transform:
+                translateY(-42px)
+                rotate(-1deg)
+                scale(0.96);
+        }
 
-/* =====================================================
-   VARIACIONES MANUALES SUTILES
-   ===================================================== */
+        #mensajeFinal .palabra:nth-child(6) {
+            transform:
+                translateY(-35px)
+                rotate(1deg)
+                scale(0.93);
+        }
 
-#mensajeFinal .palabra:nth-child(2) {
-    transform:
-        translateY(-38px)
-        rotate(1.5deg)
-        scale(0.94);
-}
 
-#mensajeFinal .palabra:nth-child(4) {
-    transform:
-        translateY(-42px)
-        rotate(-1deg)
-        scale(0.96);
-}
+        /* =====================================================
+           CELULAR — AJUSTE FINAL
+           ===================================================== */
 
-#mensajeFinal .palabra:nth-child(6) {
-    transform:
-        translateY(-35px)
-        rotate(1deg)
-        scale(0.93);
-}
+        @media (max-width: 600px) {
 
+            #mensajeFinal {
 
-/* =====================================================
-   CELULAR
-   ===================================================== */
+                width: 90%;
 
-@media (max-width: 600px) {
+                top: 43%;
 
-    #mensajeFinal {
+                font-size: clamp(36px, 10vw, 60px);
 
-        width: 90%;
+                line-height: 1.25;
+            }
+        }
 
-        top: 43%;
 
-        font-size: clamp(36px, 10vw, 60px);
+        /* =====================================================
+           PANTALLAS GRANDES — AJUSTE FINAL
+           ===================================================== */
 
-        line-height: 1.25;
-    }
-}
+        @media (min-width: 1200px) {
 
+            #mensajeFinal {
 
-/* =====================================================
-   PANTALLAS GRANDES
-   ===================================================== */
+                width: 84%;
 
-@media (min-width: 1200px) {
+                top: 44%;
 
-    #mensajeFinal {
+                font-size: clamp(55px, 5.8vw, 105px);
+            }
+        }
 
-        width: 84%;
-
-        top: 44%;
-
-        font-size: clamp(55px, 5.8vw, 105px);
-    }
-}
     </style>
 </head>
 
@@ -353,7 +330,7 @@
          MENSAJE FINAL
          ===================================================== -->
 
-  <div id="mensajeFinal"></div>
+    <div id="mensajeFinal"></div>
 
 
     <script>
@@ -364,130 +341,147 @@
         const mensajeInicial =
             document.getElementById("mensajeInicial");
 
-        const mensajes = [
-    const mensajes = [
-
-    "NADA PERMANECE OCULTO, SIEMPRE SE ENCUENTRA LA LUZ.",
-    "EL UNIVERSO SABE POR QUÉ ESTÁS AQUÍ.",
-    "ALGUNAS PUERTAS SOLO SE ABREN UNA VEZ.",
-    "TAL VEZ ESTO ERA EXACTAMENTE LO QUE NECESITABAS VER.",
-    "LA MAGIA COMIENZA CUANDO PRESTAS ATENCIÓN.",
-    "ALGO ESTÁ CAMBIANDO, AUNQUE TODAVÍA NO PUEDAS VERLO.",
-    "NO TODO LO QUE PARECE PERDIDO ESTÁ PERDIDO.",
-    "HAY SEÑALES QUE SOLO APARECEN UNA VEZ, Y ESTA ES UNA SEÑAL.",
-    "TU INTUICIÓN YA SABE LA RESPUESTA.",
-    "ALGO BUENO ESTÁ BUSCANDO LA MANERA DE ENCONTRARTE.",
-    "NO IGNORES ESA CORAZONADA.",
-    "LO QUE VIENE NO NECESITA QUE LO PERSIGAS.",
-    "A VECES EL CAMINO SE REVELA DESPUÉS DEL PRIMER PASO.",
-    "SI, SI Y SI, SIGUE ADELANTE, CONFÍA.",
-    "HAY COSAS QUE LLEGAN CUANDO DEJAS DE BUSCARLAS.",
-    "ESTA HISTORIA TODAVÍA NO TERMINÓ.",
-    "CONFÍA UN POCO MÁS EN LO QUE NO PUEDES EXPLICAR.",
-    "ALGO SE ESTÁ ORDENANDO DETRÁS DE ESCENA.",
-    "NO TODO DEBE TENER UNA EXPLICACIÓN.",
-    "ALGUNAS COINCIDENCIAS SON DEMASIADO PRECISAS.",
-    "LO QUE ES PARA TI ENCONTRARÁ SU CAMINO.",
-    "MIRA OTRA VEZ. QUIZÁ NO VISTE TODO.",
-    "HAY UNA RESPUESTA ESCONDIDA EN UNA PREGUNTA.",
-    "TU MOMENTO PUEDE ESTAR MÁS CERCA DE LO QUE CREES.",
-    "NO SUBESTIMES UNA PEQUEÑA SEÑAL.",
-    "ALGO QUE CREÍAS TERMINADO PUEDE VOLVER DE OTRA MANERA.",
-    "EL TIEMPO TAMBIÉN SABE HACER MAGIA.",
-    "QUIZÁ EL AZAR TIENE MEJOR MEMORIA QUE TÚ.",
-    "NO TODO LO IMPORTANTE HACE RUIDO.",
-    "HAY SILENCIOS QUE DICEN MUCHO.",
-    "PRESTA ATENCIÓN A LO QUE SE REPITE.",
-    "UNA PUERTA CERRADA TAMBIÉN PUEDE SER UNA DIRECCIÓN.",
-    "ALGO QUE ESPERAS PUEDE ESTAR ESPERÁNDOTE A TI.",
-    "NO CAMBIES DE CAMINO TODAVÍA.",
-    "ESA IDEA QUE VUELVE UNA Y OTRA VEZ MERECE SER ESCUCHADA.",
-    "A VECES SABER ESPERAR TAMBIÉN ES ACTUAR.",
-    "TU PRÓXIMA DECISIÓN PUEDE CAMBIAR MÁS DE LO QUE IMAGINAS.",
-    "NO TODO LO DESCONOCIDO ES PELIGROSO.",
-    "HAY MÁS POSIBILIDADES DE LAS QUE ESTÁS VIENDO.",
-    "LO INESPERADO TAMBIÉN PUEDE SER UNA BENDICIÓN.",
-    "ALGO NUEVO NECESITA ESPACIO PARA ENTRAR.",
-    "DEJA UN POCO DE LUGAR PARA LA SORPRESA.",
-    "QUIZÁ EL UNIVERSO TIENE SENTIDO DEL HUMOR.",
-    "NO ERA EL MOMENTO. AHORA PUEDE SERLO.",
-    "ESA PERSONA NO APARECIÓ POR ACCIDENTE.",
-    "UNA CONVERSACIÓN PUEDE CAMBIAR EL RUMBO.",
-    "NO DESCARTES UNA PROPUESTA INESPERADA.",
-    "ALGUIEN PUEDE ESTAR PENSANDO EN TI.",
-    "UNA NOTICIA PUEDE LLEGAR ANTES DE LO QUE ESPERAS.",
-    "LO QUE PARECE PEQUEÑO PUEDE TERMINAR SIENDO IMPORTANTE.",
-    "TU PACIENCIA ESTÁ A PUNTO DE DAR FRUTOS.",
-    "ALGO QUE DESEAS PUEDE ESTAR TOMANDO FORMA.",
-    "NO HAGAS CASO A TODAS TUS DUDAS.",
-    "HAY MOMENTOS EN LOS QUE HAY QUE DEJAR DE CONTROLAR.",
-    "SI ALGO TE INQUIETA, OBSÉRVALO ANTES DE ACTUAR.",
-    "TU PRIMERA IMPRESIÓN PUEDE TENER RAZÓN.",
-    "ESA CORAZONADA NO LLEGÓ DE LA NADA.",
-    "NO NECESITAS SABER TODA LA HISTORIA PARA DAR EL SIGUIENTE PASO.",
-    "LO QUE HOY PARECE CONFUSO PRONTO TENDRÁ SENTIDO.",
-    "UNA ELECCIÓN SE ACERCA.",
-    "ALGO ESTÁ POR REVELARSE.",
-    "NO TE APRESURES. TODAVÍA FALTA UNA PIEZA.",
-    "QUIZÁ LA RESPUESTA ESTÁ EN ALGO QUE YA CONOCES.",
-    "EL PASADO PUEDE TRAER UNA SORPRESA.",
-    "UNA VIEJA IDEA PUEDE VOLVER CON NUEVA FUERZA.",
-    "NO TODO REGRESO ES UN RETROCESO.",
-    "A VECES HAY QUE CERRAR UNA PUERTA PARA ESCUCHAR LA OTRA.",
-    "LO QUE DEJASTE ATRÁS TODAVÍA PUEDE ENSEÑARTE ALGO.",
-    "HAY UNA LECCIÓN ESCONDIDA EN ESO QUE TE MOLESTA.",
-    "NO CONFUNDAS CALMA CON ESTANCAMIENTO.",
-    "EL CAMBIO YA COMENZÓ.",
-    "NO NECESITAS TENER TODO RESUELTO HOY.",
-    "UNA PARTE DE TI YA SABE QUÉ HACER.",
-    "ESCUCHA LO QUE SIENTES CUANDO NADIE TE ESTÁ MIRANDO.",
-    "NO HAGAS PEQUEÑA UNA INTUICIÓN GRANDE.",
-    "HAY ALGO QUE MERECE UNA SEGUNDA OPORTUNIDAD.",
-    "QUIZÁ NO PERDISTE EL CAMINO. QUIZÁ CAMBIASTE DE RUMBO.",
-    "EL MOMENTO PERFECTO RARA VEZ AVISA.",
-    "LO IMPOSIBLE A VECES SOLO NECESITA MÁS TIEMPO.",
-    "NO TODO MILAGRO PARECE UN MILAGRO AL PRINCIPIO.",
-    "LA SUERTE TAMBIÉN ENCUENTRA A QUIEN SE MUEVE.",
-    "HAZLE CASO A ESA CURIOSIDAD.",
-    "UNA PEQUEÑA ACCIÓN PUEDE ABRIR UNA GRAN PUERTA.",
-    "NO TE RINDAS JUSTO ANTES DE LA VUELTA.",
-    "HAY ALGO MEJOR ESPERANDO DETRÁS DE ESA DECISIÓN.",
-    "NO NECESITAS PERMISO PARA CAMBIAR DE IDEA.",
-    "TU VIDA NO TIENE POR QUÉ SEGUIR EL PLAN ORIGINAL.",
-    "QUIZÁ EL DESVÍO ERA PARTE DEL CAMINO.",
-    "NO TODO LO QUE BRILLA QUIERE SER ENCONTRADO.",
-    "A VECES LO QUE BUSCAS TAMBIÉN TE ESTÁ BUSCANDO.",
-    "MANTÉN LOS OJOS ABIERTOS ESTA SEMANA.",
-    "ALGO INESPERADO PUEDE HACERTE SONREÍR.",
-    "UNA SORPRESA PUEDE LLEGAR DE DONDE MENOS LA ESPERAS.",
-    "NO DESCARTES EL AZAR TODAVÍA.",
-    "HAY MAGIA EN SABER CUÁNDO DECIR QUE SÍ.",
-    "Y TAMBIÉN HAY MAGIA EN SABER CUÁNDO DECIR QUE NO.",
-    "NO TODO SE RESUELVE PENSANDO MÁS.",
-    "A VECES LA RESPUESTA LLEGA CUANDO DEJAS DE PREGUNTAR.",
-    "SI LLEGASTE HASTA AQUÍ, ALGO TE TRAJO.",
-    "QUIZÁ ESTA SEA TU SEÑAL.",
-    "O QUIZÁ SOLO SEA UNA COINCIDENCIA. TÚ DECIDES.",
-    "PERO ADMITIRÁS QUE ES UNA COINCIDENCIA BASTANTE OPORTUNA."
-];
-];
-
-const mensajeAleatorio =
-    mensajes[Math.floor(Math.random() * mensajes.length)];
-
-mensajeFinal.textContent = mensajeAleatorio;
-
-        const palabras =
-            document.querySelectorAll(
-                "#mensajeFinal .palabra"
-            );
-
-
-        let despertada = false;
+        const mensajeFinal =
+            document.getElementById("mensajeFinal");
 
 
         /* =====================================================
-           DESPERTAR
+           100 MENSAJES
+           ===================================================== */
+
+        const mensajes = [
+
+            "NADA PERMANECE OCULTO, SIEMPRE SE ENCUENTRA LA LUZ.",
+            "EL UNIVERSO SABE POR QUÉ ESTÁS AQUÍ.",
+            "ALGUNAS PUERTAS SOLO SE ABREN UNA VEZ.",
+            "TAL VEZ ESTO ERA EXACTAMENTE LO QUE NECESITABAS VER.",
+            "LA MAGIA COMIENZA CUANDO PRESTAS ATENCIÓN.",
+            "ALGO ESTÁ CAMBIANDO, AUNQUE TODAVÍA NO PUEDAS VERLO.",
+            "NO TODO LO QUE PARECE PERDIDO ESTÁ PERDIDO.",
+            "HAY SEÑALES QUE SOLO APARECEN UNA VEZ, Y ESTA ES UNA SEÑAL.",
+            "TU INTUICIÓN YA SABE LA RESPUESTA.",
+            "ALGO BUENO ESTÁ BUSCANDO LA MANERA DE ENCONTRARTE.",
+            "NO IGNORES ESA CORAZONADA.",
+            "LO QUE VIENE NO NECESITA QUE LO PERSIGAS.",
+            "A VECES EL CAMINO SE REVELA DESPUÉS DEL PRIMER PASO.",
+            "SI, SI Y SI, SIGUE ADELANTE, CONFÍA.",
+            "HAY COSAS QUE LLEGAN CUANDO DEJAS DE BUSCARLAS.",
+            "ESTA HISTORIA TODAVÍA NO TERMINÓ.",
+            "CONFÍA UN POCO MÁS EN LO QUE NO PUEDES EXPLICAR.",
+            "ALGO SE ESTÁ ORDENANDO DETRÁS DE ESCENA.",
+            "NO TODO DEBE TENER UNA EXPLICACIÓN.",
+            "ALGUNAS COINCIDENCIAS SON DEMASIADO PRECISAS.",
+            "LO QUE ES PARA TI ENCONTRARÁ SU CAMINO.",
+            "MIRA OTRA VEZ. QUIZÁ NO VISTE TODO.",
+            "HAY UNA RESPUESTA ESCONDIDA EN UNA PREGUNTA.",
+            "TU MOMENTO PUEDE ESTAR MÁS CERCA DE LO QUE CREES.",
+            "NO SUBESTIMES UNA PEQUEÑA SEÑAL.",
+            "ALGO QUE CREÍAS TERMINADO PUEDE VOLVER DE OTRA MANERA.",
+            "EL TIEMPO TAMBIÉN SABE HACER MAGIA.",
+            "QUIZÁ EL AZAR TIENE MEJOR MEMORIA QUE TÚ.",
+            "NO TODO LO IMPORTANTE HACE RUIDO.",
+            "HAY SILENCIOS QUE DICEN MUCHO.",
+            "PRESTA ATENCIÓN A LO QUE SE REPITE.",
+            "UNA PUERTA CERRADA TAMBIÉN PUEDE SER UNA DIRECCIÓN.",
+            "ALGO QUE ESPERAS PUEDE ESTAR ESPERÁNDOTE A TI.",
+            "NO CAMBIES DE CAMINO TODAVÍA.",
+            "ESA IDEA QUE VUELVE UNA Y OTRA VEZ MERECE SER ESCUCHADA.",
+            "A VECES SABER ESPERAR TAMBIÉN ES ACTUAR.",
+            "TU PRÓXIMA DECISIÓN PUEDE CAMBIAR MÁS DE LO QUE IMAGINAS.",
+            "NO TODO LO DESCONOCIDO ES PELIGROSO.",
+            "HAY MÁS POSIBILIDADES DE LAS QUE ESTÁS VIENDO.",
+            "LO INESPERADO TAMBIÉN PUEDE SER UNA BENDICIÓN.",
+            "ALGO NUEVO NECESITA ESPACIO PARA ENTRAR.",
+            "DEJA UN POCO DE LUGAR PARA LA SORPRESA.",
+            "QUIZÁ EL UNIVERSO TIENE SENTIDO DEL HUMOR.",
+            "NO ERA EL MOMENTO. AHORA PUEDE SERLO.",
+            "ESA PERSONA NO APARECIÓ POR ACCIDENTE.",
+            "UNA CONVERSACIÓN PUEDE CAMBIAR EL RUMBO.",
+            "NO DESCARTES UNA PROPUESTA INESPERADA.",
+            "ALGUIEN PUEDE ESTAR PENSANDO EN TI.",
+            "UNA NOTICIA PUEDE LLEGAR ANTES DE LO QUE ESPERAS.",
+            "LO QUE PARECE PEQUEÑO PUEDE TERMINAR SIENDO IMPORTANTE.",
+            "TU PACIENCIA ESTÁ A PUNTO DE DAR FRUTOS.",
+            "ALGO QUE DESEAS PUEDE ESTAR TOMANDO FORMA.",
+            "NO HAGAS CASO A TODAS TUS DUDAS.",
+            "HAY MOMENTOS EN LOS QUE HAY QUE DEJAR DE CONTROLAR.",
+            "SI ALGO TE INQUIETA, OBSÉRVALO ANTES DE ACTUAR.",
+            "TU PRIMERA IMPRESIÓN PUEDE TENER RAZÓN.",
+            "ESA CORAZONADA NO LLEGÓ DE LA NADA.",
+            "NO NECESITAS SABER TODA LA HISTORIA PARA DAR EL SIGUIENTE PASO.",
+            "LO QUE HOY PARECE CONFUSO PRONTO TENDRÁ SENTIDO.",
+            "UNA ELECCIÓN SE ACERCA.",
+            "ALGO ESTÁ POR REVELARSE.",
+            "NO TE APRESURES. TODAVÍA FALTA UNA PIEZA.",
+            "QUIZÁ LA RESPUESTA ESTÁ EN ALGO QUE YA CONOCES.",
+            "EL PASADO PUEDE TRAER UNA SORPRESA.",
+            "UNA VIEJA IDEA PUEDE VOLVER CON NUEVA FUERZA.",
+            "NO TODO REGRESO ES UN RETROCESO.",
+            "A VECES HAY QUE CERRAR UNA PUERTA PARA ESCUCHAR LA OTRA.",
+            "LO QUE DEJASTE ATRÁS TODAVÍA PUEDE ENSEÑARTE ALGO.",
+            "HAY UNA LECCIÓN ESCONDIDA EN ESO QUE TE MOLESTA.",
+            "NO CONFUNDAS CALMA CON ESTANCAMIENTO.",
+            "EL CAMBIO YA COMENZÓ.",
+            "NO NECESITAS TENER TODO RESUELTO HOY.",
+            "UNA PARTE DE TI YA SABE QUÉ HACER.",
+            "ESCUCHA LO QUE SIENTES CUANDO NADIE TE ESTÁ MIRANDO.",
+            "NO HAGAS PEQUEÑA UNA INTUICIÓN GRANDE.",
+            "HAY ALGO QUE MERECE UNA SEGUNDA OPORTUNIDAD.",
+            "QUIZÁ NO PERDISTE EL CAMINO. QUIZÁ CAMBIASTE DE RUMBO.",
+            "EL MOMENTO PERFECTO RARA VEZ AVISA.",
+            "LO IMPOSIBLE A VECES SOLO NECESITA MÁS TIEMPO.",
+            "NO TODO MILAGRO PARECE UN MILAGRO AL PRINCIPIO.",
+            "LA SUERTE TAMBIÉN ENCUENTRA A QUIEN SE MUEVE.",
+            "HAZLE CASO A ESA CURIOSIDAD.",
+            "UNA PEQUEÑA ACCIÓN PUEDE ABRIR UNA GRAN PUERTA.",
+            "NO TE RINDAS JUSTO ANTES DE LA VUELTA.",
+            "HAY ALGO MEJOR ESPERANDO DETRÁS DE ESA DECISIÓN.",
+            "NO NECESITAS PERMISO PARA CAMBIAR DE IDEA.",
+            "TU VIDA NO TIENE POR QUÉ SEGUIR EL PLAN ORIGINAL.",
+            "QUIZÁ EL DESVÍO ERA PARTE DEL CAMINO.",
+            "NO TODO LO QUE BRILLA QUIERE SER ENCONTRADO.",
+            "A VECES LO QUE BUSCAS TAMBIÉN TE ESTÁ BUSCANDO.",
+            "MANTÉN LOS OJOS ABIERTOS ESTA SEMANA.",
+            "ALGO INESPERADO PUEDE HACERTE SONREÍR.",
+            "UNA SORPRESA PUEDE LLEGAR DE DONDE MENOS LA ESPERAS.",
+            "NO DESCARTES EL AZAR TODAVÍA.",
+            "HAY MAGIA EN SABER CUÁNDO DECIR QUE SÍ.",
+            "Y TAMBIÉN HAY MAGIA EN SABER CUÁNDO DECIR QUE NO.",
+            "NO TODO SE RESUELVE PENSANDO MÁS.",
+            "A VECES LA RESPUESTA LLEGA CUANDO DEJAS DE PREGUNTAR.",
+            "SI LLEGASTE HASTA AQUÍ, ALGO TE TRAJO.",
+            "QUIZÁ ESTA SEA TU SEÑAL.",
+            "O QUIZÁ SOLO SEA UNA COINCIDENCIA. TÚ DECIDES.",
+            "PERO ADMITIRÁS QUE ES UNA COINCIDENCIA BASTANTE OPORTUNA."
+
+        ];
+
+
+        /* =====================================================
+           ELEGIR UNA FRASE AL AZAR
+           ===================================================== */
+
+        const mensajeAleatorio =
+            mensajes[
+                Math.floor(
+                    Math.random() * mensajes.length
+                )
+            ];
+
+        mensajeFinal.textContent =
+            mensajeAleatorio;
+
+
+        /* =====================================================
+           ESTADO
+           ===================================================== */
+
+        let despertada = false;
+        let mensajeIniciado = false;
+
+
+        /* =====================================================
+           DESPERTAR LA OBRA
            ===================================================== */
 
         function despertar() {
@@ -504,6 +498,10 @@ mensajeFinal.textContent = mensajeAleatorio;
         }
 
 
+        /* =====================================================
+           CLIC / TOQUE
+           ===================================================== */
+
         mensajeInicial.addEventListener(
             "click",
             despertar
@@ -516,226 +514,33 @@ mensajeFinal.textContent = mensajeAleatorio;
 
 
         /* =====================================================
-           FINAL DEL VIDEO
+           MENSAJE FINAL
+           COMIENZA 2 SEGUNDOS ANTES
            ===================================================== */
 
-     let mensajeIniciado = false;
+        video.addEventListener(
+            "timeupdate",
+            function() {
 
-/* =====================================================
-   COMENZAR EL MENSAJE
-   1 SEGUNDO ANTES DEL FINAL
-   ===================================================== */
+                if (mensajeIniciado) return;
 
-<script>
+                if (
+                    video.duration &&
+                    video.duration - video.currentTime <= 2
+                ) {
 
-    const video =
-        document.getElementById("video");
+                    mensajeIniciado = true;
 
-    const mensajeInicial =
-        document.getElementById("mensajeInicial");
+                    mensajeFinal.classList.add(
+                        "revelado"
+                    );
+                }
 
-    const mensajeFinal =
-        document.getElementById("mensajeFinal");
-
-
-    /* =====================================================
-       MENSAJES
-       ===================================================== */
-
-    const mensajes = [
-
-        "NADA PERMANECE OCULTO, SIEMPRE SE ENCUENTRA LA LUZ.",
-        "EL UNIVERSO SABE POR QUÉ ESTÁS AQUÍ.",
-        "ALGUNAS PUERTAS SOLO SE ABREN UNA VEZ.",
-        "TAL VEZ ESTO ERA EXACTAMENTE LO QUE NECESITABAS VER.",
-        "LA MAGIA COMIENZA CUANDO PRESTAS ATENCIÓN.",
-        "ALGO ESTÁ CAMBIANDO, AUNQUE TODAVÍA NO PUEDAS VERLO.",
-        "NO TODO LO QUE PARECE PERDIDO ESTÁ PERDIDO.",
-        "HAY SEÑALES QUE SOLO APARECEN UNA VEZ, Y ESTA ES UNA SEÑAL.",
-        "TU INTUICIÓN YA SABE LA RESPUESTA.",
-        "ALGO BUENO ESTÁ BUSCANDO LA MANERA DE ENCONTRARTE.",
-        "NO IGNORES ESA CORAZONADA.",
-        "LO QUE VIENE NO NECESITA QUE LO PERSIGAS.",
-        "A VECES EL CAMINO SE REVELA DESPUÉS DEL PRIMER PASO.",
-        "SI, SI Y SI, SIGUE ADELANTE, CONFÍA.",
-        "HAY COSAS QUE LLEGAN CUANDO DEJAS DE BUSCARLAS.",
-        "ESTA HISTORIA TODAVÍA NO TERMINÓ.",
-        "CONFÍA UN POCO MÁS EN LO QUE NO PUEDES EXPLICAR.",
-        "ALGO SE ESTÁ ORDENANDO DETRÁS DE ESCENA.",
-        "NO TODO DEBE TENER UNA EXPLICACIÓN.",
-        "ALGUNAS COINCIDENCIAS SON DEMASIADO PRECISAS.",
-        "LO QUE ES PARA TI ENCONTRARÁ SU CAMINO.",
-        "MIRA OTRA VEZ. QUIZÁ NO VISTE TODO.",
-        "HAY UNA RESPUESTA ESCONDIDA EN UNA PREGUNTA.",
-        "TU MOMENTO PUEDE ESTAR MÁS CERCA DE LO QUE CREES.",
-        "NO SUBESTIMES UNA PEQUEÑA SEÑAL.",
-        "ALGO QUE CREÍAS TERMINADO PUEDE VOLVER DE OTRA MANERA.",
-        "EL TIEMPO TAMBIÉN SABE HACER MAGIA.",
-        "QUIZÁ EL AZAR TIENE MEJOR MEMORIA QUE TÚ.",
-        "NO TODO LO IMPORTANTE HACE RUIDO.",
-        "HAY SILENCIOS QUE DICEN MUCHO.",
-        "PRESTA ATENCIÓN A LO QUE SE REPITE.",
-        "UNA PUERTA CERRADA TAMBIÉN PUEDE SER UNA DIRECCIÓN.",
-        "ALGO QUE ESPERAS PUEDE ESTAR ESPERÁNDOTE A TI.",
-        "NO CAMBIES DE CAMINO TODAVÍA.",
-        "ESA IDEA QUE VUELVE UNA Y OTRA VEZ MERECE SER ESCUCHADA.",
-        "A VECES SABER ESPERAR TAMBIÉN ES ACTUAR.",
-        "TU PRÓXIMA DECISIÓN PUEDE CAMBIAR MÁS DE LO QUE IMAGINAS.",
-        "NO TODO LO DESCONOCIDO ES PELIGROSO.",
-        "HAY MÁS POSIBILIDADES DE LAS QUE ESTÁS VIENDO.",
-        "LO INESPERADO TAMBIÉN PUEDE SER UNA BENDICIÓN.",
-        "ALGO NUEVO NECESITA ESPACIO PARA ENTRAR.",
-        "DEJA UN POCO DE LUGAR PARA LA SORPRESA.",
-        "QUIZÁ EL UNIVERSO TIENE SENTIDO DEL HUMOR.",
-        "NO ERA EL MOMENTO. AHORA PUEDE SERLO.",
-        "ESA PERSONA NO APARECIÓ POR ACCIDENTE.",
-        "UNA CONVERSACIÓN PUEDE CAMBIAR EL RUMBO.",
-        "NO DESCARTES UNA PROPUESTA INESPERADA.",
-        "ALGUIEN PUEDE ESTAR PENSANDO EN TI.",
-        "UNA NOTICIA PUEDE LLEGAR ANTES DE LO QUE ESPERAS.",
-        "LO QUE PARECE PEQUEÑO PUEDE TERMINAR SIENDO IMPORTANTE.",
-        "TU PACIENCIA ESTÁ A PUNTO DE DAR FRUTOS.",
-        "ALGO QUE DESEAS PUEDE ESTAR TOMANDO FORMA.",
-        "NO HAGAS CASO A TODAS TUS DUDAS.",
-        "HAY MOMENTOS EN LOS QUE HAY QUE DEJAR DE CONTROLAR.",
-        "SI ALGO TE INQUIETA, OBSÉRVALO ANTES DE ACTUAR.",
-        "TU PRIMERA IMPRESIÓN PUEDE TENER RAZÓN.",
-        "ESA CORAZONADA NO LLEGÓ DE LA NADA.",
-        "NO NECESITAS SABER TODA LA HISTORIA PARA DAR EL SIGUIENTE PASO.",
-        "LO QUE HOY PARECE CONFUSO PRONTO TENDRÁ SENTIDO.",
-        "UNA ELECCIÓN SE ACERCA.",
-        "ALGO ESTÁ POR REVELARSE.",
-        "NO TE APRESURES. TODAVÍA FALTA UNA PIEZA.",
-        "QUIZÁ LA RESPUESTA ESTÁ EN ALGO QUE YA CONOCES.",
-        "EL PASADO PUEDE TRAER UNA SORPRESA.",
-        "UNA VIEJA IDEA PUEDE VOLVER CON NUEVA FUERZA.",
-        "NO TODO REGRESO ES UN RETROCESO.",
-        "A VECES HAY QUE CERRAR UNA PUERTA PARA ESCUCHAR LA OTRA.",
-        "LO QUE DEJASTE ATRÁS TODAVÍA PUEDE ENSEÑARTE ALGO.",
-        "HAY UNA LECCIÓN ESCONDIDA EN ESO QUE TE MOLESTA.",
-        "NO CONFUNDAS CALMA CON ESTANCAMIENTO.",
-        "EL CAMBIO YA COMENZÓ.",
-        "NO NECESITAS TENER TODO RESUELTO HOY.",
-        "UNA PARTE DE TI YA SABE QUÉ HACER.",
-        "ESCUCHA LO QUE SIENTES CUANDO NADIE TE ESTÁ MIRANDO.",
-        "NO HAGAS PEQUEÑA UNA INTUICIÓN GRANDE.",
-        "HAY ALGO QUE MERECE UNA SEGUNDA OPORTUNIDAD.",
-        "QUIZÁ NO PERDISTE EL CAMINO. QUIZÁ CAMBIASTE DE RUMBO.",
-        "EL MOMENTO PERFECTO RARA VEZ AVISA.",
-        "LO IMPOSIBLE A VECES SOLO NECESITA MÁS TIEMPO.",
-        "NO TODO MILAGRO PARECE UN MILAGRO AL PRINCIPIO.",
-        "LA SUERTE TAMBIÉN ENCUENTRA A QUIEN SE MUEVE.",
-        "HAZLE CASO A ESA CURIOSIDAD.",
-        "UNA PEQUEÑA ACCIÓN PUEDE ABRIR UNA GRAN PUERTA.",
-        "NO TE RINDAS JUSTO ANTES DE LA VUELTA.",
-        "HAY ALGO MEJOR ESPERANDO DETRÁS DE ESA DECISIÓN.",
-        "NO NECESITAS PERMISO PARA CAMBIAR DE IDEA.",
-        "TU VIDA NO TIENE POR QUÉ SEGUIR EL PLAN ORIGINAL.",
-        "QUIZÁ EL DESVÍO ERA PARTE DEL CAMINO.",
-        "NO TODO LO QUE BRILLA QUIERE SER ENCONTRADO.",
-        "A VECES LO QUE BUSCAS TAMBIÉN TE ESTÁ BUSCANDO.",
-        "MANTÉN LOS OJOS ABIERTOS ESTA SEMANA.",
-        "ALGO INESPERADO PUEDE HACERTE SONREÍR.",
-        "UNA SORPRESA PUEDE LLEGAR DE DONDE MENOS LA ESPERAS.",
-        "NO DESCARTES EL AZAR TODAVÍA.",
-        "HAY MAGIA EN SABER CUÁNDO DECIR QUE SÍ.",
-        "Y TAMBIÉN HAY MAGIA EN SABER CUÁNDO DECIR QUE NO.",
-        "NO TODO SE RESUELVE PENSANDO MÁS.",
-        "A VECES LA RESPUESTA LLEGA CUANDO DEJAS DE PREGUNTAR.",
-        "SI LLEGASTE HASTA AQUÍ, ALGO TE TRAJO.",
-        "QUIZÁ ESTA SEA TU SEÑAL.",
-        "O QUIZÁ SOLO SEA UNA COINCIDENCIA. TÚ DECIDES.",
-        "PERO ADMITIRÁS QUE ES UNA COINCIDENCIA BASTANTE OPORTUNA."
-
-    ];
-
-
-    /* =====================================================
-       ELEGIR FRASE AL AZAR
-       ===================================================== */
-
-    const mensajeAleatorio =
-        mensajes[
-            Math.floor(
-                Math.random() * mensajes.length
-            )
-        ];
-
-    mensajeFinal.textContent =
-        mensajeAleatorio;
-
-
-    /* =====================================================
-       ESTADO
-       ===================================================== */
-
-    let despertada = false;
-    let mensajeIniciado = false;
-
-
-    /* =====================================================
-       DESPERTAR
-       ===================================================== */
-
-    function despertar() {
-
-        if (despertada) return;
-
-        despertada = true;
-
-        video.muted = false;
-
-        video.play();
-
-        mensajeInicial.classList.add("oculto");
-    }
-
-
-    /* =====================================================
-       CLIC / TOQUE
-       ===================================================== */
-
-    mensajeInicial.addEventListener(
-        "click",
-        despertar
-    );
-
-    video.addEventListener(
-        "click",
-        despertar
-    );
-
-
-    /* =====================================================
-       APARICIÓN DEL MENSAJE
-       2 SEGUNDOS ANTES DEL FINAL
-       ===================================================== */
-
-    video.addEventListener(
-        "timeupdate",
-        function() {
-
-            if (mensajeIniciado) return;
-
-            if (
-                video.duration &&
-                video.duration - video.currentTime <= 2
-            ) {
-
-                mensajeIniciado = true;
-
-                mensajeFinal.classList.add(
-                    "revelado"
-                );
             }
-
-        }
-    );
-
-</script>
+        );
 
     </script>
 
 </body>
 </html>
-```
+  
