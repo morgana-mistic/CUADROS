@@ -526,21 +526,213 @@ mensajeFinal.textContent = mensajeAleatorio;
    1 SEGUNDO ANTES DEL FINAL
    ===================================================== */
 
-video.addEventListener("timeupdate", function() {
+<script>
 
-    if (mensajeIniciado) return;
+    const video =
+        document.getElementById("video");
 
-    if (
-        video.duration &&
-        video.duration - video.currentTime <= 2
-    ) {
+    const mensajeInicial =
+        document.getElementById("mensajeInicial");
 
-        mensajeIniciado = true;
+    const mensajeFinal =
+        document.getElementById("mensajeFinal");
 
-        mensajeFinal.classList.add("revelado");
+
+    /* =====================================================
+       MENSAJES
+       ===================================================== */
+
+    const mensajes = [
+
+        "NADA PERMANECE OCULTO, SIEMPRE SE ENCUENTRA LA LUZ.",
+        "EL UNIVERSO SABE POR QUÉ ESTÁS AQUÍ.",
+        "ALGUNAS PUERTAS SOLO SE ABREN UNA VEZ.",
+        "TAL VEZ ESTO ERA EXACTAMENTE LO QUE NECESITABAS VER.",
+        "LA MAGIA COMIENZA CUANDO PRESTAS ATENCIÓN.",
+        "ALGO ESTÁ CAMBIANDO, AUNQUE TODAVÍA NO PUEDAS VERLO.",
+        "NO TODO LO QUE PARECE PERDIDO ESTÁ PERDIDO.",
+        "HAY SEÑALES QUE SOLO APARECEN UNA VEZ, Y ESTA ES UNA SEÑAL.",
+        "TU INTUICIÓN YA SABE LA RESPUESTA.",
+        "ALGO BUENO ESTÁ BUSCANDO LA MANERA DE ENCONTRARTE.",
+        "NO IGNORES ESA CORAZONADA.",
+        "LO QUE VIENE NO NECESITA QUE LO PERSIGAS.",
+        "A VECES EL CAMINO SE REVELA DESPUÉS DEL PRIMER PASO.",
+        "SI, SI Y SI, SIGUE ADELANTE, CONFÍA.",
+        "HAY COSAS QUE LLEGAN CUANDO DEJAS DE BUSCARLAS.",
+        "ESTA HISTORIA TODAVÍA NO TERMINÓ.",
+        "CONFÍA UN POCO MÁS EN LO QUE NO PUEDES EXPLICAR.",
+        "ALGO SE ESTÁ ORDENANDO DETRÁS DE ESCENA.",
+        "NO TODO DEBE TENER UNA EXPLICACIÓN.",
+        "ALGUNAS COINCIDENCIAS SON DEMASIADO PRECISAS.",
+        "LO QUE ES PARA TI ENCONTRARÁ SU CAMINO.",
+        "MIRA OTRA VEZ. QUIZÁ NO VISTE TODO.",
+        "HAY UNA RESPUESTA ESCONDIDA EN UNA PREGUNTA.",
+        "TU MOMENTO PUEDE ESTAR MÁS CERCA DE LO QUE CREES.",
+        "NO SUBESTIMES UNA PEQUEÑA SEÑAL.",
+        "ALGO QUE CREÍAS TERMINADO PUEDE VOLVER DE OTRA MANERA.",
+        "EL TIEMPO TAMBIÉN SABE HACER MAGIA.",
+        "QUIZÁ EL AZAR TIENE MEJOR MEMORIA QUE TÚ.",
+        "NO TODO LO IMPORTANTE HACE RUIDO.",
+        "HAY SILENCIOS QUE DICEN MUCHO.",
+        "PRESTA ATENCIÓN A LO QUE SE REPITE.",
+        "UNA PUERTA CERRADA TAMBIÉN PUEDE SER UNA DIRECCIÓN.",
+        "ALGO QUE ESPERAS PUEDE ESTAR ESPERÁNDOTE A TI.",
+        "NO CAMBIES DE CAMINO TODAVÍA.",
+        "ESA IDEA QUE VUELVE UNA Y OTRA VEZ MERECE SER ESCUCHADA.",
+        "A VECES SABER ESPERAR TAMBIÉN ES ACTUAR.",
+        "TU PRÓXIMA DECISIÓN PUEDE CAMBIAR MÁS DE LO QUE IMAGINAS.",
+        "NO TODO LO DESCONOCIDO ES PELIGROSO.",
+        "HAY MÁS POSIBILIDADES DE LAS QUE ESTÁS VIENDO.",
+        "LO INESPERADO TAMBIÉN PUEDE SER UNA BENDICIÓN.",
+        "ALGO NUEVO NECESITA ESPACIO PARA ENTRAR.",
+        "DEJA UN POCO DE LUGAR PARA LA SORPRESA.",
+        "QUIZÁ EL UNIVERSO TIENE SENTIDO DEL HUMOR.",
+        "NO ERA EL MOMENTO. AHORA PUEDE SERLO.",
+        "ESA PERSONA NO APARECIÓ POR ACCIDENTE.",
+        "UNA CONVERSACIÓN PUEDE CAMBIAR EL RUMBO.",
+        "NO DESCARTES UNA PROPUESTA INESPERADA.",
+        "ALGUIEN PUEDE ESTAR PENSANDO EN TI.",
+        "UNA NOTICIA PUEDE LLEGAR ANTES DE LO QUE ESPERAS.",
+        "LO QUE PARECE PEQUEÑO PUEDE TERMINAR SIENDO IMPORTANTE.",
+        "TU PACIENCIA ESTÁ A PUNTO DE DAR FRUTOS.",
+        "ALGO QUE DESEAS PUEDE ESTAR TOMANDO FORMA.",
+        "NO HAGAS CASO A TODAS TUS DUDAS.",
+        "HAY MOMENTOS EN LOS QUE HAY QUE DEJAR DE CONTROLAR.",
+        "SI ALGO TE INQUIETA, OBSÉRVALO ANTES DE ACTUAR.",
+        "TU PRIMERA IMPRESIÓN PUEDE TENER RAZÓN.",
+        "ESA CORAZONADA NO LLEGÓ DE LA NADA.",
+        "NO NECESITAS SABER TODA LA HISTORIA PARA DAR EL SIGUIENTE PASO.",
+        "LO QUE HOY PARECE CONFUSO PRONTO TENDRÁ SENTIDO.",
+        "UNA ELECCIÓN SE ACERCA.",
+        "ALGO ESTÁ POR REVELARSE.",
+        "NO TE APRESURES. TODAVÍA FALTA UNA PIEZA.",
+        "QUIZÁ LA RESPUESTA ESTÁ EN ALGO QUE YA CONOCES.",
+        "EL PASADO PUEDE TRAER UNA SORPRESA.",
+        "UNA VIEJA IDEA PUEDE VOLVER CON NUEVA FUERZA.",
+        "NO TODO REGRESO ES UN RETROCESO.",
+        "A VECES HAY QUE CERRAR UNA PUERTA PARA ESCUCHAR LA OTRA.",
+        "LO QUE DEJASTE ATRÁS TODAVÍA PUEDE ENSEÑARTE ALGO.",
+        "HAY UNA LECCIÓN ESCONDIDA EN ESO QUE TE MOLESTA.",
+        "NO CONFUNDAS CALMA CON ESTANCAMIENTO.",
+        "EL CAMBIO YA COMENZÓ.",
+        "NO NECESITAS TENER TODO RESUELTO HOY.",
+        "UNA PARTE DE TI YA SABE QUÉ HACER.",
+        "ESCUCHA LO QUE SIENTES CUANDO NADIE TE ESTÁ MIRANDO.",
+        "NO HAGAS PEQUEÑA UNA INTUICIÓN GRANDE.",
+        "HAY ALGO QUE MERECE UNA SEGUNDA OPORTUNIDAD.",
+        "QUIZÁ NO PERDISTE EL CAMINO. QUIZÁ CAMBIASTE DE RUMBO.",
+        "EL MOMENTO PERFECTO RARA VEZ AVISA.",
+        "LO IMPOSIBLE A VECES SOLO NECESITA MÁS TIEMPO.",
+        "NO TODO MILAGRO PARECE UN MILAGRO AL PRINCIPIO.",
+        "LA SUERTE TAMBIÉN ENCUENTRA A QUIEN SE MUEVE.",
+        "HAZLE CASO A ESA CURIOSIDAD.",
+        "UNA PEQUEÑA ACCIÓN PUEDE ABRIR UNA GRAN PUERTA.",
+        "NO TE RINDAS JUSTO ANTES DE LA VUELTA.",
+        "HAY ALGO MEJOR ESPERANDO DETRÁS DE ESA DECISIÓN.",
+        "NO NECESITAS PERMISO PARA CAMBIAR DE IDEA.",
+        "TU VIDA NO TIENE POR QUÉ SEGUIR EL PLAN ORIGINAL.",
+        "QUIZÁ EL DESVÍO ERA PARTE DEL CAMINO.",
+        "NO TODO LO QUE BRILLA QUIERE SER ENCONTRADO.",
+        "A VECES LO QUE BUSCAS TAMBIÉN TE ESTÁ BUSCANDO.",
+        "MANTÉN LOS OJOS ABIERTOS ESTA SEMANA.",
+        "ALGO INESPERADO PUEDE HACERTE SONREÍR.",
+        "UNA SORPRESA PUEDE LLEGAR DE DONDE MENOS LA ESPERAS.",
+        "NO DESCARTES EL AZAR TODAVÍA.",
+        "HAY MAGIA EN SABER CUÁNDO DECIR QUE SÍ.",
+        "Y TAMBIÉN HAY MAGIA EN SABER CUÁNDO DECIR QUE NO.",
+        "NO TODO SE RESUELVE PENSANDO MÁS.",
+        "A VECES LA RESPUESTA LLEGA CUANDO DEJAS DE PREGUNTAR.",
+        "SI LLEGASTE HASTA AQUÍ, ALGO TE TRAJO.",
+        "QUIZÁ ESTA SEA TU SEÑAL.",
+        "O QUIZÁ SOLO SEA UNA COINCIDENCIA. TÚ DECIDES.",
+        "PERO ADMITIRÁS QUE ES UNA COINCIDENCIA BASTANTE OPORTUNA."
+
+    ];
+
+
+    /* =====================================================
+       ELEGIR FRASE AL AZAR
+       ===================================================== */
+
+    const mensajeAleatorio =
+        mensajes[
+            Math.floor(
+                Math.random() * mensajes.length
+            )
+        ];
+
+    mensajeFinal.textContent =
+        mensajeAleatorio;
+
+
+    /* =====================================================
+       ESTADO
+       ===================================================== */
+
+    let despertada = false;
+    let mensajeIniciado = false;
+
+
+    /* =====================================================
+       DESPERTAR
+       ===================================================== */
+
+    function despertar() {
+
+        if (despertada) return;
+
+        despertada = true;
+
+        video.muted = false;
+
+        video.play();
+
+        mensajeInicial.classList.add("oculto");
     }
 
-});
+
+    /* =====================================================
+       CLIC / TOQUE
+       ===================================================== */
+
+    mensajeInicial.addEventListener(
+        "click",
+        despertar
+    );
+
+    video.addEventListener(
+        "click",
+        despertar
+    );
+
+
+    /* =====================================================
+       APARICIÓN DEL MENSAJE
+       2 SEGUNDOS ANTES DEL FINAL
+       ===================================================== */
+
+    video.addEventListener(
+        "timeupdate",
+        function() {
+
+            if (mensajeIniciado) return;
+
+            if (
+                video.duration &&
+                video.duration - video.currentTime <= 2
+            ) {
+
+                mensajeIniciado = true;
+
+                mensajeFinal.classList.add(
+                    "revelado"
+                );
+            }
+
+        }
+    );
+
+</script>
 
     </script>
 
